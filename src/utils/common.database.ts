@@ -2,6 +2,8 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { JsonDB } from 'node-json-db';
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig';
 
+import { errorMessageDictionary } from '../dictionary/error-message.dictionary';
+
 export class CommonDatabase {
   protected db: JsonDB;
 
@@ -21,7 +23,9 @@ export class CommonDatabase {
     try {
       return this.db.getData(`/${path}`);
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(
+        errorMessageDictionary.DATA_NOT_EXIST,
+      );
     }
   }
 
