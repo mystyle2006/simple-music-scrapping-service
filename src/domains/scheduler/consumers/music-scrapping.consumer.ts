@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { albumDatabase } from '../../../database/album.database';
 import { musicDatabase } from '../../../database/music.database';
 import { scrapLogDatabase } from '../../../database/scrap-log.database';
+import { errorMessageDictionary } from '../../../dictionary/error-message.dictionary';
 import { queueDictionary } from '../../../dictionary/queue.dictionary';
 import { ScrapStatusEnum } from '../../../enum/scrap-status.enum';
 import { VendorEnum } from '../../../enum/vendor.enum';
@@ -25,7 +26,14 @@ export class MusicScrappingConsumer {
         startedAt: new Date(),
       });
       const musics = await scrapMusic(data.music);
+      if (!Object.keys(musics).length) {
+        throw new Error(errorMessageDictionary.MUSIC_SCRAPPING_EMPTY);
+      }
+
       const albums = await scrapAlbums(data.album, Object.keys(musics));
+      if (!Object.keys(albums).length) {
+        throw new Error(errorMessageDictionary.ALBUM_SCRAPPING_EMPTY);
+      }
 
       musicDatabase.create(`${data.name}`, musics);
       albumDatabase.create(`${data.name}`, albums);
@@ -37,10 +45,10 @@ export class MusicScrappingConsumer {
       });
       console.info('>>> end scrapping target ->', data.name);
     } catch (error) {
-      console.info(error);
       scrapLogDatabase.update(scrapLogId, {
         vendorName: VendorEnum.MELON,
         status: ScrapStatusEnum.FAIL,
+        errorMessage: error.message,
         finishedAt: new Date(),
       });
       console.info('>>> error scrapping target ->', data.name);

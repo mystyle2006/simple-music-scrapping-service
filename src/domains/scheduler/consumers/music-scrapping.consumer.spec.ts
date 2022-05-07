@@ -55,6 +55,7 @@ describe('music-scrapping.consumer.spec.ts', () => {
       expect(scrapLogDatabase.update).toHaveBeenCalledWith(mockUuid, {
         vendorName: 'MELON',
         status: 'FAIL',
+        errorMessage: 'fail!!',
         finishedAt: mockDate,
       });
     });
