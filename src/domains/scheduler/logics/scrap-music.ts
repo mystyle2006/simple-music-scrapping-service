@@ -5,7 +5,7 @@ import { MusicScrapInterface } from '../../../interfaces/music-scrap.interface';
 import { axiosWrapper } from '../../../utils/axios.wrapper';
 import { MusicSummaryInterface } from '../interfaces/music-summary.interface';
 
-const extractAlbumId = (prefix: string, html: string) => {
+export const extractAlbumId = (prefix: string, html: string): string => {
   const reg = new RegExp('(?<=' + `${prefix}\\('` + ")([0-9]+)(?=')", 'g');
   return (`${html}`.match(reg) || [])[0];
 };
