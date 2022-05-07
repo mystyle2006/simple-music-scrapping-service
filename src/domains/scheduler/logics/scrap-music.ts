@@ -2,8 +2,8 @@ import cheerio from 'cheerio';
 import * as _ from 'lodash';
 
 import { MusicScrapInterface } from '../../../interfaces/music-scrap.interface';
-import { MusicSummaryInterface } from '../../../interfaces/music-summary.interface';
 import { axiosWrapper } from '../../../utils/axios.wrapper';
+import { MusicSummaryInterface } from '../interfaces/music-summary.interface';
 
 const extractAlbumId = (prefix: string, html: string) => {
   const reg = new RegExp('(?<=' + `${prefix}\\('` + ")([0-9]+)(?=')", 'g');

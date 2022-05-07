@@ -1,9 +1,9 @@
 import cheerio from 'cheerio';
 import * as _ from 'lodash';
 
-import { AlbumScrapInterface } from '../../../interfaces/album-scrap.interface';
-import { AlbumSummaryInterface } from '../../../interfaces/album-summary.interface';
-import { axiosWrapper } from '../../../utils/axios.wrapper';
+import { AlbumSummaryInterface } from '../domains/scheduler/interfaces/album-summary.interface';
+import { axiosWrapper } from '../utils/axios.wrapper';
+import { AlbumScrapInterface } from './album-scrap.interface';
 
 export const scrapAlbums = async (
   album: AlbumScrapInterface,

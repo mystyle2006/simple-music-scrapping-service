@@ -1,4 +1,4 @@
-import { VendorInterface } from '../interfaces/vendor.interface';
+import { VendorInterface } from '../domains/scheduler/logics/vendor.interface';
 import { CommonDatabase } from '../utils/common.database';
 
 class VendorDatabase extends CommonDatabase {

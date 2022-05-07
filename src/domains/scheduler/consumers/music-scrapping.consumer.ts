@@ -7,8 +7,8 @@ import { scrapLogDatabase } from '../../../database/scrap-log.database';
 import { queueDictionary } from '../../../dictionary/queue.dictionary';
 import { ScrapStatusEnum } from '../../../enum/scrap-status.enum';
 import { VendorEnum } from '../../../enum/vendor.enum';
-import { MusicJobInterface } from '../../../interfaces/music-job.interface';
-import { scrapAlbums } from '../logics/scrap-albums';
+import { scrapAlbums } from '../../../interfaces/scrap-albums';
+import { MusicJobInterface } from '../interfaces/music-job.interface';
 import { scrapMusic } from '../logics/scrap-music';
 
 @Processor(queueDictionary.MUSIC_SCRAPPING)

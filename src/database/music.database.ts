@@ -1,4 +1,4 @@
-import { MusicSummaryInterface } from '../interfaces/music-summary.interface';
+import { MusicSummaryInterface } from '../domains/scheduler/interfaces/music-summary.interface';
 import { CommonDatabase } from '../utils/common.database';
 
 class MusicDatabase extends CommonDatabase {

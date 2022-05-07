@@ -1,4 +1,4 @@
-import { VendorInterface } from './vendor.interface';
+import { VendorInterface } from '../logics/vendor.interface';
 
 export interface MusicJobInterface {
   data: VendorInterface;

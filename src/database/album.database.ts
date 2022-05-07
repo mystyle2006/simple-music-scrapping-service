@@ -1,4 +1,4 @@
-import { AlbumSummaryInterface } from '../interfaces/album-summary.interface';
+import { AlbumSummaryInterface } from '../domains/scheduler/interfaces/album-summary.interface';
 import { CommonDatabase } from '../utils/common.database';
 
 class AlbumDatabase extends CommonDatabase {
