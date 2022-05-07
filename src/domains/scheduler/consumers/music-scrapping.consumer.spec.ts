@@ -7,28 +7,12 @@ import { musicDatabase } from '../../../database/music.database';
 import { scrapLogDatabase } from '../../../database/scrap-log.database';
 import { vendorInformationDictionary } from '../../../dictionary/vendor-information.dictionary';
 import { VendorEnum } from '../../../enum/vendor.enum';
-import { AlbumSummaryInterface } from '../interfaces/album-summary.interface';
-import { MusicSummaryInterface } from '../interfaces/music-summary.interface';
+import { albumStub } from '../_test/stubs/album.stub';
+import { albumIdStub } from '../_test/stubs/album-id.stub';
+import { musicStub } from '../_test/stubs/music.stub';
 import * as ScrapAlbumsModule from '../logics/scrap-albums';
 import * as ScrapMusicModule from '../logics/scrap-music';
 import { MusicScrappingConsumer } from './music-scrapping.consumer';
-
-const albumId = '050505';
-const mockAlbum: AlbumSummaryInterface = {
-  [albumId]: {
-    publisher: '토스엔터테이너',
-    agency: '토스',
-  },
-};
-const mockMusic: MusicSummaryInterface = {
-  [albumId]: {
-    album: '토스앨범',
-    albumId: albumId,
-    singer: '토스',
-    name: '토스',
-    ranking: 1,
-  },
-};
 
 jest.mock('uuid');
 
@@ -50,8 +34,8 @@ describe('music-scrapping.consumer.spec.ts', () => {
     jest.spyOn(scrapLogDatabase, 'update').mockReturnValue(null);
     jest.spyOn(musicDatabase, 'create').mockReturnValue(null);
     jest.spyOn(albumDatabase, 'create').mockReturnValue(null);
-    jest.spyOn(ScrapAlbumsModule, 'scrapAlbums').mockResolvedValue(mockAlbum);
-    jest.spyOn(ScrapMusicModule, 'scrapMusic').mockResolvedValue(mockMusic);
+    jest.spyOn(ScrapAlbumsModule, 'scrapAlbums').mockResolvedValue(albumStub);
+    jest.spyOn(ScrapMusicModule, 'scrapMusic').mockResolvedValue(musicStub);
     uuidv4.mockImplementation(() => mockUuid);
     jest.useFakeTimers('modern').setSystemTime(mockDate);
   });
@@ -112,16 +96,29 @@ describe('music-scrapping.consumer.spec.ts', () => {
           publisherTarget: 'dd:nth-of-type(3)',
           agencyTarget: 'dd:nth-of-type(4)',
         },
-        [albumId],
+        ['050505'],
       );
     });
 
     it('뮤직 데이터베이스 저장', () => {
-      expect(musicDatabase.create).toHaveBeenCalledWith('MELON', mockMusic);
+      expect(musicDatabase.create).toHaveBeenCalledWith('MELON', {
+        '050505': {
+          album: '토스앨범',
+          albumId: albumIdStub,
+          singer: '토스',
+          name: '토스',
+          ranking: 1,
+        },
+      });
     });
 
     it('앨범 데이터베이스 저장', () => {
-      expect(albumDatabase.create).toHaveBeenCalledWith('MELON', mockAlbum);
+      expect(albumDatabase.create).toHaveBeenCalledWith('MELON', {
+        '050505': {
+          publisher: '토스엔터테이너',
+          agency: '토스',
+        },
+      });
     });
 
     it('스크래핑 로그 완료로 수정', () => {
