@@ -25,17 +25,19 @@ export class MusicScrappingConsumer {
         status: ScrapStatusEnum.RUNNING,
         startedAt: new Date(),
       });
+
       const musics = await scrapMusic(data.music);
       if (!Object.keys(musics).length) {
         throw new Error(errorMessageDictionary.MUSIC_SCRAPPING_EMPTY);
       }
+
+      musicDatabase.create(`${data.name}`, musics);
 
       const albums = await scrapAlbums(data.album, Object.keys(musics));
       if (!Object.keys(albums).length) {
         throw new Error(errorMessageDictionary.ALBUM_SCRAPPING_EMPTY);
       }
 
-      musicDatabase.create(`${data.name}`, musics);
       albumDatabase.create(`${data.name}`, albums);
 
       scrapLogDatabase.update(scrapLogId, {
@@ -45,6 +47,7 @@ export class MusicScrappingConsumer {
       });
       console.info('>>> end scrapping target ->', data.name);
     } catch (error) {
+      console.info(error);
       scrapLogDatabase.update(scrapLogId, {
         vendorName: VendorEnum.MELON,
         status: ScrapStatusEnum.FAIL,
