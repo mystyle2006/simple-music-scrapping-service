@@ -2,7 +2,8 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 
 import { queueDictionary } from '../../dictionary/queue.dictionary';
-import { ScrappingConsumer } from './consumers/scrapping.consumer';
+import { MusicScrappingConsumer } from './consumers/music-scrapping.consumer';
+import { SchedulerController } from './scheduler.controller';
 import { SchedulerService } from './scheduler.service';
 
 @Module({
@@ -11,6 +12,7 @@ import { SchedulerService } from './scheduler.service';
       name: queueDictionary.MUSIC_SCRAPPING,
     }),
   ],
-  providers: [SchedulerService, ScrappingConsumer],
+  controllers: [SchedulerController],
+  providers: [SchedulerService, MusicScrappingConsumer],
 })
 export class SchedulerModule {}
