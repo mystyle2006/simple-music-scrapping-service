@@ -1,3 +1,4 @@
+import { InternalServerErrorException } from '@nestjs/common';
 import { JsonDB } from 'node-json-db';
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig';
 
@@ -12,7 +13,7 @@ export class CommonDatabase {
     try {
       this.db.delete(`/${path}`);
     } catch (error) {
-      console.error(error);
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -20,7 +21,7 @@ export class CommonDatabase {
     try {
       return this.db.getData(`/${path}`);
     } catch (error) {
-      console.error(error);
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -28,7 +29,7 @@ export class CommonDatabase {
     try {
       this.db.push(`/${path}`, data);
     } catch (error) {
-      console.error(error);
+      throw new InternalServerErrorException(error);
     }
   }
 }
