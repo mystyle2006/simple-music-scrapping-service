@@ -1,10 +1,12 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 
 import { MusicChartModule } from './domains/music-chart/music-chart.module';
 import { SchedulerModule } from './domains/scheduler/scheduler.module';
+import { ResponseInterceptor } from './utils/response.interceptor';
 
 @Module({
   imports: [
@@ -20,6 +22,11 @@ import { SchedulerModule } from './domains/scheduler/scheduler.module';
     MusicChartModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseInterceptor,
+    },
+  ],
 })
 export class AppModule {}

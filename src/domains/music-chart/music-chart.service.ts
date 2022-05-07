@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { albumDatabase } from '../../database/album.database';
 import { musicDatabase } from '../../database/music.database';
+import { VendorEnum } from '../../enum/vendor.enum';
 import { GetSvcFindOneDto } from './dto/get-svc-find-one.dto';
 import { ReturnSvcFindOneDto } from './dto/return-svc-find-one.dto';
 
@@ -14,5 +15,10 @@ export class MusicChartService {
       music,
       album,
     };
+  }
+
+  findMusics(vendor: VendorEnum) {
+    const music = musicDatabase.find(vendor);
+    return Object.values(music);
   }
 }

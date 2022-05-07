@@ -3,6 +3,8 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { VendorEnum } from '../../enum/vendor.enum';
 import { ToUpperCasePipe } from '../../utils/to-upper-case.pipe';
+import { ReturnSvcFindOneDto } from './dto/return-svc-find-one.dto';
+import { MusicInterface } from './interfaces/music.interface';
 import { MusicChartService } from './music-chart.service';
 
 @ApiTags('뮤직 차트')
@@ -17,10 +19,20 @@ export class MusicChartController {
   findOne(
     @Param('vendor', ToUpperCasePipe) vendor: VendorEnum,
     @Param('musicId') musicId: string,
-  ) {
+  ): ReturnSvcFindOneDto {
     return this.musicChartService.findOne({
       vendor,
       musicId,
     });
+  }
+
+  @ApiOperation({
+    summary: '음원 목록',
+  })
+  @Get('/:vendor/summary')
+  findMusics(
+    @Param('vendor', ToUpperCasePipe) vendor: VendorEnum,
+  ): MusicInterface[] {
+    return this.musicChartService.findMusics(vendor);
   }
 }

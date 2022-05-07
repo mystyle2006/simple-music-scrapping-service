@@ -14,6 +14,11 @@ class MusicDatabase extends CommonDatabase {
     return this.get<MusicInterface>(path);
   }
 
+  find(key: string): MusicSummaryInterface {
+    const path = [this.musicPrefix, key].join('/');
+    return this.get<MusicSummaryInterface>(path);
+  }
+
   create(key: string, data: MusicSummaryInterface): void {
     const path = [this.musicPrefix, key].join('/');
 
