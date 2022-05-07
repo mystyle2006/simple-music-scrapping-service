@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 
+import { MusicChartModule } from './domains/music-chart/music-chart.module';
 import { SchedulerModule } from './domains/scheduler/scheduler.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { SchedulerModule } from './domains/scheduler/scheduler.module';
     }),
     ScheduleModule.forRoot(),
     SchedulerModule,
+    MusicChartModule,
   ],
   controllers: [],
   providers: [],
