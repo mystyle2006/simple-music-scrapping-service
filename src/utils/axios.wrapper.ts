@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export class AxiosWrapper {
+class AxiosWrapper {
   async get(host: string): Promise<any> {
     try {
       const { data } = await axios.get(host);

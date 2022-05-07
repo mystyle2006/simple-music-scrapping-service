@@ -18,6 +18,7 @@ export class MusicScrappingConsumer {
     const scrapLogId = uuidv4();
 
     try {
+      console.info('>>> start scrapping target ->', data.name);
       scrapLogDatabase.create(scrapLogId, {
         vendorName: VendorEnum.MELON,
         status: ScrapStatusEnum.RUNNING,
@@ -34,6 +35,7 @@ export class MusicScrappingConsumer {
         status: ScrapStatusEnum.DONE,
         finishedAt: new Date(),
       });
+      console.info('>>> end scrapping target ->', data.name);
     } catch (error) {
       console.info(error);
       scrapLogDatabase.update(scrapLogId, {
@@ -41,6 +43,7 @@ export class MusicScrappingConsumer {
         status: ScrapStatusEnum.FAIL,
         finishedAt: new Date(),
       });
+      console.info('>>> error scrapping target ->', data.name);
     }
   }
 }

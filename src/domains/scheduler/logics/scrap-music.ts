@@ -1,8 +1,14 @@
 import cheerio from 'cheerio';
+import * as _ from 'lodash';
 
 import { MusicScrapInterface } from '../../../interfaces/music-scrap.interface';
 import { MusicSummaryInterface } from '../../../interfaces/music-summary.interface';
 import { axiosWrapper } from '../../../utils/axios.wrapper';
+
+const extractAlbumId = (prefix: string, html: string) => {
+  const reg = new RegExp('(?<=' + `${prefix}\\('` + ")([0-9]+)(?=')", 'g');
+  return (`${html}`.match(reg) || [])[0];
+};
 
 export const scrapMusic = async (
   music: MusicScrapInterface,
@@ -16,23 +22,20 @@ export const scrapMusic = async (
   let musics: MusicSummaryInterface = {};
 
   $(music.target).map((i, element) => {
-    const ranking = Number($(element).find(music.rankTarget).text());
-    const name = String($(element).find(music.nameTarget).text());
-    const singer = String($(element).find(music.singerTarget).text());
-    const album = String($(element).find(music.albumTarget).text());
-    const reg = new RegExp(
-      '(?<=' + `${music.albumIdPrefix}\\('` + ")([0-9]+)(?=')",
-      'g',
-    );
-    const albumIdHtml = String($(element).find(music.albumIdTarget).html());
-    const albumId = `${albumIdHtml}`.match(reg)[0];
+    const ranking = _.trim($(element).find(music.rankTarget).text());
+    const name = _.trim($(element).find(music.nameTarget).text());
+    const singer = _.trim($(element).find(music.singerTarget).text());
+    const album = _.trim($(element).find(music.albumTarget).text());
+    const albumIdHtml = _.trim($(element).find(music.albumIdTarget).html());
+
+    const albumId = extractAlbumId(music.albumIdPrefix, albumIdHtml);
     musics = {
       ...musics,
       [albumId]: {
         album,
         albumId,
         name,
-        ranking,
+        ranking: Number(ranking),
         singer,
       },
     };

@@ -1,4 +1,5 @@
 import cheerio from 'cheerio';
+import * as _ from 'lodash';
 
 import { AlbumScrapInterface } from '../../../interfaces/album-scrap.interface';
 import { AlbumSummaryInterface } from '../../../interfaces/album-summary.interface';
@@ -16,8 +17,8 @@ export const scrapAlbums = async (
     }
 
     const $ = cheerio.load(html);
-    const agency = String($(album.target).find(album.agencyTarget).text());
-    const publisher = String(
+    const agency = _.trim($(album.target).find(album.agencyTarget).text());
+    const publisher = _.trim(
       $(album.target).find(album.publisherTarget).text(),
     );
 
