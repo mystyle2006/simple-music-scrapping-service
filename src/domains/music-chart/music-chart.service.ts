@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
+import { CacheService } from '../../cache/cache.service';
 import { albumDatabase } from '../../database/album.database';
 import { musicDatabase } from '../../database/music.database';
+import { cacheNameDictionary } from '../../dictionary/cache-name.dictionary';
 import { VendorEnum } from '../../enum/vendor.enum';
 import { GetSvcFindOneDto } from './dto/get-svc-find-one.dto';
 import { ReturnSvcFindOneDto } from './dto/return-svc-find-one.dto';
@@ -9,28 +11,60 @@ import { MusicInterface } from './interfaces/music.interface';
 
 @Injectable()
 export class MusicChartService {
-  findOne({ vendor, musicId }: GetSvcFindOneDto): ReturnSvcFindOneDto {
+  constructor(private readonly cacheService: CacheService) {}
+
+  async findOne({
+    vendor,
+    musicId,
+  }: GetSvcFindOneDto): Promise<ReturnSvcFindOneDto> {
+    const key = [vendor, musicId].join('_');
+    const cached = await this.cacheService.find<ReturnSvcFindOneDto>(key);
+    if (cached) {
+      return cached;
+    }
+
     const music = musicDatabase.findById([vendor, musicId].join('/'));
     const album = albumDatabase.findById([vendor, musicId].join('/'));
-    return {
+    const result = {
       music,
       album,
     };
+
+    await this.cacheService.create(key, result);
+    return result;
   }
 
-  findMusics(vendor: VendorEnum): MusicInterface[] {
+  async findMusics(vendor: VendorEnum): Promise<MusicInterface[]> {
+    const key = [vendor, cacheNameDictionary.MUSIC_CACHE].join('_');
+    const cached = await this.cacheService.find<MusicInterface[]>(key);
+    if (cached) {
+      return cached;
+    }
+
     const musics = musicDatabase.find(vendor);
-    return Object.values(musics);
+    const result = Object.values(musics);
+
+    await this.cacheService.create(key, result);
+    return result;
   }
 
-  find(vendor: VendorEnum): ReturnSvcFindOneDto[] {
+  async find(vendor: VendorEnum): Promise<ReturnSvcFindOneDto[]> {
+    const key = [vendor, cacheNameDictionary.MUSIC_ALBUM_CACHE].join('_');
+    const cached = await this.cacheService.find<ReturnSvcFindOneDto[]>(key);
+    if (cached) {
+      return cached;
+    }
+
     const musics = musicDatabase.find(vendor);
     const albums = albumDatabase.find(vendor);
-    return Object.values(musics).map(
+    const result = Object.values(musics).map(
       (music): ReturnSvcFindOneDto => ({
         music,
         album: albums[music.albumId],
       }),
     );
+
+    await this.cacheService.create(key, result);
+    return result;
   }
 }

@@ -19,7 +19,7 @@ export class MusicChartController {
   findOne(
     @Param('vendor', ToUpperCasePipe) vendor: VendorEnum,
     @Param('musicId') musicId: string,
-  ): ReturnSvcFindOneDto {
+  ): Promise<ReturnSvcFindOneDto> {
     return this.musicChartService.findOne({
       vendor,
       musicId,
@@ -32,7 +32,7 @@ export class MusicChartController {
   @Get('/:vendor/summary')
   findMusics(
     @Param('vendor', ToUpperCasePipe) vendor: VendorEnum,
-  ): MusicInterface[] {
+  ): Promise<MusicInterface[]> {
     return this.musicChartService.findMusics(vendor);
   }
 
@@ -42,7 +42,7 @@ export class MusicChartController {
   @Get('/:vendor/songs')
   find(
     @Param('vendor', ToUpperCasePipe) vendor: VendorEnum,
-  ): ReturnSvcFindOneDto[] {
+  ): Promise<ReturnSvcFindOneDto[]> {
     return this.musicChartService.find(vendor);
   }
 }
