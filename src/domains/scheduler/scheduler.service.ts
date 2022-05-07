@@ -13,7 +13,7 @@ export class SchedulerService {
   ) {}
 
   @Cron(CronExpression.EVERY_10_MINUTES)
-  handleCron() {
+  scrap() {
     const vendors = vendorDatabase.find();
     vendors.forEach((vendor) =>
       this.scrappingQueue.add(vendor, {
