@@ -35,4 +35,14 @@ export class MusicChartController {
   ): MusicInterface[] {
     return this.musicChartService.findMusics(vendor);
   }
+
+  @ApiOperation({
+    summary: '음원 목록 + 상세 정보',
+  })
+  @Get('/:vendor/songs')
+  find(
+    @Param('vendor', ToUpperCasePipe) vendor: VendorEnum,
+  ): ReturnSvcFindOneDto[] {
+    return this.musicChartService.find(vendor);
+  }
 }

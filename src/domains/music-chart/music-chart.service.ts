@@ -5,6 +5,7 @@ import { musicDatabase } from '../../database/music.database';
 import { VendorEnum } from '../../enum/vendor.enum';
 import { GetSvcFindOneDto } from './dto/get-svc-find-one.dto';
 import { ReturnSvcFindOneDto } from './dto/return-svc-find-one.dto';
+import { MusicInterface } from './interfaces/music.interface';
 
 @Injectable()
 export class MusicChartService {
@@ -17,8 +18,19 @@ export class MusicChartService {
     };
   }
 
-  findMusics(vendor: VendorEnum) {
-    const music = musicDatabase.find(vendor);
-    return Object.values(music);
+  findMusics(vendor: VendorEnum): MusicInterface[] {
+    const musics = musicDatabase.find(vendor);
+    return Object.values(musics);
+  }
+
+  find(vendor: VendorEnum): ReturnSvcFindOneDto[] {
+    const musics = musicDatabase.find(vendor);
+    const albums = albumDatabase.find(vendor);
+    return Object.values(musics).map(
+      (music): ReturnSvcFindOneDto => ({
+        music,
+        album: albums[music.albumId],
+      }),
+    );
   }
 }

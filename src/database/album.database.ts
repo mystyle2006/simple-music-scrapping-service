@@ -14,6 +14,11 @@ class AlbumDatabase extends CommonDatabase {
     return this.get<AlbumInterface>(path);
   }
 
+  find(key: string): AlbumSummaryInterface {
+    const path = [this.albumPrefix, key].join('/');
+    return this.get<AlbumSummaryInterface>(path);
+  }
+
   create(key: string, data: AlbumSummaryInterface): void {
     const path = [this.albumPrefix, key].join('/');
 
