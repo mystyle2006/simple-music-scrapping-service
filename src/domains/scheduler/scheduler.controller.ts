@@ -4,7 +4,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ReturnSvcScrapLogDto } from './dto/return-svc-scrap-log.dto';
 import { SchedulerService } from './scheduler.service';
 
-@ApiTags('default')
+@ApiTags('스케쥴러')
 @Controller('scheduler')
 export class SchedulerController {
   constructor(private readonly schedulerService: SchedulerService) {}
@@ -21,7 +21,7 @@ export class SchedulerController {
   @ApiOperation({
     summary: '스크랩핑 로그 확인하기',
   })
-  @Get()
+  @Get('/log')
   findLogs(): ReturnSvcScrapLogDto {
     return this.schedulerService.findLogs();
   }
