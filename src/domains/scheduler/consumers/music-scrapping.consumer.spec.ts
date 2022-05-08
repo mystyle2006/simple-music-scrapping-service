@@ -2,6 +2,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { v4 as uuidv4 } from 'uuid';
 
+import { CacheService } from '../../../cache/cache.service';
 import { albumDatabase } from '../../../database/album.database';
 import { musicDatabase } from '../../../database/music.database';
 import { scrapLogDatabase } from '../../../database/scrap-log.database';
@@ -15,6 +16,7 @@ import * as ScrapMusicModule from '../logics/scrap-music';
 import { MusicScrappingConsumer } from './music-scrapping.consumer';
 
 jest.mock('uuid');
+jest.mock('../../../cache/cache.service');
 
 describe('music-scrapping.consumer.spec.ts', () => {
   let musicScrappingConsumer: MusicScrappingConsumer;
@@ -23,7 +25,7 @@ describe('music-scrapping.consumer.spec.ts', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MusicScrappingConsumer],
+      providers: [MusicScrappingConsumer, CacheService],
     }).compile();
 
     musicScrappingConsumer = module.get<MusicScrappingConsumer>(

@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
 import * as _ from 'lodash';
 
+import { errorMessageDictionary } from '../../../dictionary/error-message.dictionary';
 import { AlbumScrapInterface } from '../../../interfaces/album-scrap.interface';
 import { axiosWrapper } from '../../../utils/axios.wrapper';
 import { AlbumSummaryInterface } from '../interfaces/album-summary.interface';
@@ -9,7 +10,7 @@ export const scrapAlbums = async (
   album: AlbumScrapInterface,
   albumIds: string[],
 ): Promise<AlbumSummaryInterface> => {
-  return albumIds.reduce(async (promise, albumId) => {
+  const albums = await albumIds.reduce(async (promise, albumId) => {
     const html = await axiosWrapper.get(`${album.url}${albumId}`);
     if (!html) {
       const result = await promise.then();
@@ -30,4 +31,10 @@ export const scrapAlbums = async (
 
     return Promise.resolve(result);
   }, Promise.resolve({}));
+
+  if (!Object.keys(albums).length) {
+    throw new Error(errorMessageDictionary.ALBUM_SCRAPPING_EMPTY);
+  }
+
+  return albums;
 };

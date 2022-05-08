@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
 import * as _ from 'lodash';
 
+import { errorMessageDictionary } from '../../../dictionary/error-message.dictionary';
 import { MusicScrapInterface } from '../../../interfaces/music-scrap.interface';
 import { axiosWrapper } from '../../../utils/axios.wrapper';
 import { MusicSummaryInterface } from '../interfaces/music-summary.interface';
@@ -40,6 +41,10 @@ export const scrapMusic = async (
       },
     };
   });
+
+  if (!Object.keys(musics).length) {
+    throw new Error(errorMessageDictionary.MUSIC_SCRAPPING_EMPTY);
+  }
 
   return musics;
 };
