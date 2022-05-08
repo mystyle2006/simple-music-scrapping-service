@@ -6,7 +6,6 @@ import { Queue } from 'bull';
 import { scrapLogDatabase } from '../../database/scrap-log.database';
 import { vendorDatabase } from '../../database/vendor.database';
 import { queueDictionary } from '../../dictionary/queue.dictionary';
-import { VendorEnum } from '../../enums/vendor.enum';
 import { ReturnSvcScrapLogDto } from './dto/return-svc-scrap-log.dto';
 import { getCronExpression } from './logics/get-cron-expression';
 
@@ -36,7 +35,7 @@ export class SchedulerService {
         return {
           ...acc,
           [`${cur.name}`.toLowerCase()]: logs.map(
-            (log) => log.vendorName === VendorEnum.MELON,
+            (log) => log.vendorName === cur.name,
           ).length,
         };
       },
