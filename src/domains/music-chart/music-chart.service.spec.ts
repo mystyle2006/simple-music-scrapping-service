@@ -4,10 +4,12 @@ import { CacheService } from '../../cache/cache.service';
 import { albumDatabase } from '../../database/album.database';
 import { musicDatabase } from '../../database/music.database';
 import { VendorEnum } from '../../enum/vendor.enum';
-import { albumStub } from '../scheduler/_test/stubs/album.stub';
-import { albumIdStub } from '../scheduler/_test/stubs/album-id.stub';
-import { musicStub } from '../scheduler/_test/stubs/music.stub';
+import { albumStub } from './_test/stubs/album.stub';
+import { albumIdStub } from './_test/stubs/album-id.stub';
+import { albumSummaryStub } from './_test/stubs/album-summary.stub';
+import { musicStub } from './_test/stubs/music.stub';
 import { musicAlbumStub } from './_test/stubs/music-album.stub';
+import { musicSummaryStub } from './_test/stubs/music-summary.stub';
 import { ReturnSvcFindOneDto } from './dto/return-svc-find-one.dto';
 import { MusicInterface } from './interfaces/music.interface';
 import { MusicChartService } from './music-chart.service';
@@ -35,8 +37,8 @@ describe('MusicChartService', () => {
       beforeEach(async () => {
         jest.spyOn(cacheService, 'find').mockResolvedValue([
           {
-            album: albumStub[albumIdStub],
-            music: musicStub[albumIdStub],
+            album: albumStub,
+            music: musicStub,
           },
         ]);
         jest.spyOn(musicDatabase, 'find').mockReturnValue(null);
@@ -69,8 +71,8 @@ describe('MusicChartService', () => {
     describe('캐시가 없을 경우', () => {
       beforeEach(async () => {
         jest.spyOn(cacheService, 'find').mockResolvedValue(null);
-        jest.spyOn(musicDatabase, 'find').mockReturnValue(musicStub);
-        jest.spyOn(albumDatabase, 'find').mockReturnValue(albumStub);
+        jest.spyOn(musicDatabase, 'find').mockReturnValue(musicSummaryStub);
+        jest.spyOn(albumDatabase, 'find').mockReturnValue(albumSummaryStub);
 
         output = await service.find(VendorEnum.MELON);
       });
@@ -129,9 +131,7 @@ describe('MusicChartService', () => {
 
     describe('캐시가 있을 경우', () => {
       beforeEach(async () => {
-        jest
-          .spyOn(cacheService, 'find')
-          .mockResolvedValue([musicStub[albumIdStub]]);
+        jest.spyOn(cacheService, 'find').mockResolvedValue([musicStub]);
         jest.spyOn(musicDatabase, 'find').mockReturnValue(null);
 
         output = await service.findMusics(VendorEnum.MELON);
@@ -157,7 +157,7 @@ describe('MusicChartService', () => {
     describe('캐시가 없을 경우', () => {
       beforeEach(async () => {
         jest.spyOn(cacheService, 'find').mockResolvedValue(null);
-        jest.spyOn(musicDatabase, 'find').mockReturnValue(musicStub);
+        jest.spyOn(musicDatabase, 'find').mockReturnValue(musicSummaryStub);
 
         output = await service.findMusics(VendorEnum.MELON);
       });
@@ -238,12 +238,8 @@ describe('MusicChartService', () => {
     describe('캐시가 없을 경우', () => {
       beforeEach(async () => {
         jest.spyOn(cacheService, 'find').mockResolvedValue(null);
-        jest
-          .spyOn(musicDatabase, 'findById')
-          .mockReturnValue(musicStub[albumIdStub]);
-        jest
-          .spyOn(albumDatabase, 'findById')
-          .mockReturnValue(albumStub[albumIdStub]);
+        jest.spyOn(musicDatabase, 'findById').mockReturnValue(musicStub);
+        jest.spyOn(albumDatabase, 'findById').mockReturnValue(albumStub);
 
         output = await service.findOne({
           vendor: VendorEnum.MELON,

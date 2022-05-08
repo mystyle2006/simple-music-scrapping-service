@@ -7,9 +7,9 @@ import { musicDatabase } from '../../../database/music.database';
 import { scrapLogDatabase } from '../../../database/scrap-log.database';
 import { vendorInformationDictionary } from '../../../dictionary/vendor-information.dictionary';
 import { VendorEnum } from '../../../enum/vendor.enum';
-import { albumStub } from '../_test/stubs/album.stub';
-import { albumIdStub } from '../_test/stubs/album-id.stub';
-import { musicStub } from '../_test/stubs/music.stub';
+import { albumIdStub } from '../../music-chart/_test/stubs/album-id.stub';
+import { albumSummaryStub } from '../../music-chart/_test/stubs/album-summary.stub';
+import { musicSummaryStub } from '../../music-chart/_test/stubs/music-summary.stub';
 import * as ScrapAlbumsModule from '../logics/scrap-albums';
 import * as ScrapMusicModule from '../logics/scrap-music';
 import { MusicScrappingConsumer } from './music-scrapping.consumer';
@@ -34,8 +34,12 @@ describe('music-scrapping.consumer.spec.ts', () => {
     jest.spyOn(scrapLogDatabase, 'update').mockReturnValue(null);
     jest.spyOn(musicDatabase, 'create').mockReturnValue(null);
     jest.spyOn(albumDatabase, 'create').mockReturnValue(null);
-    jest.spyOn(ScrapAlbumsModule, 'scrapAlbums').mockResolvedValue(albumStub);
-    jest.spyOn(ScrapMusicModule, 'scrapMusic').mockResolvedValue(musicStub);
+    jest
+      .spyOn(ScrapAlbumsModule, 'scrapAlbums')
+      .mockResolvedValue(albumSummaryStub);
+    jest
+      .spyOn(ScrapMusicModule, 'scrapMusic')
+      .mockResolvedValue(musicSummaryStub);
     uuidv4.mockImplementation(() => mockUuid);
     jest.useFakeTimers('modern').setSystemTime(mockDate);
   });
