@@ -1,11 +1,11 @@
 import { ScrapLogInterface } from '../interfaces/scrap-log.interface';
 
-export class CallsDto {
+export class CallCountsDto {
   total: number;
   [key: string]: number;
 }
 
 export class ReturnSvcScrapLogDto {
-  calls: CallsDto;
+  calls: CallCountsDto;
   data: ScrapLogInterface[];
 }

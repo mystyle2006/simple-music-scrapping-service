@@ -1,11 +1,11 @@
 import { ScrapStatusEnum } from '../../../enums/scrap-status.enum';
 import { VendorEnum } from '../../../enums/vendor.enum';
-import { CallsDto } from '../dto/return-svc-scrap-log.dto';
+import { CallCountsDto } from '../dto/return-svc-scrap-log.dto';
 import { ScrapLogInterface } from '../interfaces/scrap-log.interface';
-import { makeCalls } from './make-calls';
+import { makeCallCounts } from './make-call-counts';
 
-describe('make-calls.spec.ts', () => {
-  let output: CallsDto;
+describe('make-call-counts.spec.ts', () => {
+  let output: CallCountsDto;
   beforeEach(() => {
     const vendorNames = [VendorEnum.MELON];
     const logs: ScrapLogInterface[] = [
@@ -18,7 +18,7 @@ describe('make-calls.spec.ts', () => {
       },
     ];
 
-    output = makeCalls(vendorNames, logs);
+    output = makeCallCounts(vendorNames, logs);
   });
 
   it('로그 수 체크', () => {

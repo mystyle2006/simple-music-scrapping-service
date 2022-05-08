@@ -1,10 +1,10 @@
-import { CallsDto } from '../dto/return-svc-scrap-log.dto';
+import { CallCountsDto } from '../dto/return-svc-scrap-log.dto';
 import { ScrapLogInterface } from '../interfaces/scrap-log.interface';
 
-export const makeCalls = (
+export const makeCallCounts = (
   vendorNames: string[],
   logs: ScrapLogInterface[],
-): CallsDto =>
+): CallCountsDto =>
   vendorNames.reduce(
     (acc, vendorName) => {
       return {
