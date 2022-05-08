@@ -7,7 +7,6 @@ import { musicDatabase } from '../../../database/music.database';
 import { scrapLogDatabase } from '../../../database/scrap-log.database';
 import { queueDictionary } from '../../../dictionary/queue.dictionary';
 import { ScrapStatusEnum } from '../../../enums/scrap-status.enum';
-import { VendorEnum } from '../../../enums/vendor.enum';
 import {
   getMusicAlbumCacheName,
   getMusicCacheName,
@@ -29,7 +28,7 @@ export class MusicScrappingConsumer {
       console.info('>>> start scrapping target ->', data.name);
       scrapLogDatabase.create(scrapLogId, {
         id: scrapLogId,
-        vendorName: VendorEnum.MELON,
+        vendorName: data.name,
         status: ScrapStatusEnum.RUNNING,
         startedAt: new Date(),
       });
@@ -50,7 +49,6 @@ export class MusicScrappingConsumer {
       }
 
       scrapLogDatabase.update(scrapLogId, {
-        vendorName: VendorEnum.MELON,
         status: ScrapStatusEnum.DONE,
         finishedAt: new Date(),
       });
@@ -58,7 +56,6 @@ export class MusicScrappingConsumer {
     } catch (error) {
       console.info(error);
       scrapLogDatabase.update(scrapLogId, {
-        vendorName: VendorEnum.MELON,
         status: ScrapStatusEnum.FAIL,
         errorMessage: error.message,
         finishedAt: new Date(),

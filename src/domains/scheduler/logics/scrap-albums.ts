@@ -10,6 +10,10 @@ export const scrapAlbums = async (
   album: AlbumScrapInterface,
   albumIds: string[],
 ): Promise<AlbumSummaryInterface> => {
+  if (!album.url) {
+    return {};
+  }
+
   const albums = await albumIds.reduce(async (promise, albumId) => {
     const html = await axiosWrapper.get(`${album.url}${albumId}`);
     if (!html) {

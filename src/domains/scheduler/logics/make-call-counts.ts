@@ -9,7 +9,7 @@ export const makeCallCounts = (
     (acc, vendorName) => {
       return {
         ...acc,
-        [`${vendorName}`.toLowerCase()]: logs.map(
+        [`${vendorName}`.toLowerCase()]: logs.filter(
           (log) => log.vendorName === vendorName,
         ).length,
       };

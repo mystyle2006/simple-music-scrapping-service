@@ -7,20 +7,31 @@ import { axiosWrapper } from '../../../utils/axios.wrapper';
 import { MusicSummaryInterface } from '../interfaces/music-summary.interface';
 
 export const extractAlbumId = (prefix: string, html: string): string => {
-  const reg = new RegExp('(?<=' + `${prefix}\\('` + ")([0-9]+)(?=')", 'g');
+  const reg = new RegExp(
+    '(?<=' + `[${prefix}\\('|${prefix}/]` + ')([0-9]+)(?=[\'|"])',
+    'g',
+  );
   return (`${html}`.match(reg) || [])[0];
 };
 
 export const scrapMusic = async (
   music: MusicScrapInterface,
 ): Promise<MusicSummaryInterface> => {
+  if (!music.url) {
+    return {};
+  }
+
   const html = await axiosWrapper.get(music.url);
   if (!html) {
-    return {};
+    throw new Error(errorMessageDictionary.MUSIC_SCRAPPING_AXIOS_INVALID);
   }
 
   const $ = cheerio.load(html);
   let musics: MusicSummaryInterface = {};
+
+  if (!$(music.target).length) {
+    throw new Error(errorMessageDictionary.MUSIC_SCRAPPING_PAGE_INVALID);
+  }
 
   $(music.target).map((i, element) => {
     const ranking = _.trim(

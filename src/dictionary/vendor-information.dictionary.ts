@@ -39,4 +39,23 @@ export const vendorInformationDictionary = {
       agencyTarget: 'li:nth-of-type(4) span:nth-of-type(2)',
     },
   },
+  [VendorEnum.VIBE]: {
+    name: VendorEnum.VIBE,
+    music: {
+      url: 'https://vibe.naver.com/chart/total',
+      target: '.tracklist table tbody tr',
+      rankTarget: 'td:nth-of-type(3) span.text',
+      nameTarget: 'td:nth-of-type(4) div span a',
+      singerTarget: 'td:nth-of-type(5) span span span a span',
+      albumTarget: 'td:nth-of-type(6) a',
+      albumIdTarget: 'td:nth-of-type(6)',
+      albumIdPrefix: 'album',
+    },
+    album: {
+      url: '',
+      target: '',
+      publisherTarget: '',
+      agencyTarget: '',
+    },
+  },
 };
