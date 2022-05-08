@@ -28,6 +28,7 @@ export class MusicScrappingConsumer {
     try {
       console.info('>>> start scrapping target ->', data.name);
       scrapLogDatabase.create(scrapLogId, {
+        id: scrapLogId,
         vendorName: VendorEnum.MELON,
         status: ScrapStatusEnum.RUNNING,
         startedAt: new Date(),

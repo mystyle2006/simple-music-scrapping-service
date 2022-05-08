@@ -1,7 +1,8 @@
-import { ScrapStatusEnum } from '../enum/scrap-status.enum';
-import { VendorEnum } from '../enum/vendor.enum';
+import { ScrapStatusEnum } from '../../../enum/scrap-status.enum';
+import { VendorEnum } from '../../../enum/vendor.enum';
 
 export interface ScrapLogInterface {
+  id: string;
   vendorName: VendorEnum;
   startedAt?: Date;
   errorMessage?: string;
