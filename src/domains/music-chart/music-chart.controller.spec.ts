@@ -26,10 +26,6 @@ describe('music-chart.controller.spec.ts', () => {
       await controller.findMusics(VendorEnum.MELON);
     });
 
-    it('정의되어 있는지 체크', () => {
-      expect(controller.findMusics).toBeDefined();
-    });
-
     it('벤더 체크', () => {
       expect(service.findMusics).toHaveBeenCalledWith('MELON');
     });
@@ -38,10 +34,6 @@ describe('music-chart.controller.spec.ts', () => {
   describe('findOne', () => {
     beforeEach(async () => {
       await controller.findOne(VendorEnum.MELON, albumIdStub);
-    });
-
-    it('정의되어 있는지 체크', () => {
-      expect(controller.findOne).toBeDefined();
     });
 
     it('벤더 체크', () => {
@@ -55,10 +47,6 @@ describe('music-chart.controller.spec.ts', () => {
   describe('find', () => {
     beforeEach(async () => {
       await controller.find(VendorEnum.MELON);
-    });
-
-    it('정의되어 있는지 체크', () => {
-      expect(controller.find).toBeDefined();
     });
 
     it('벤더 체크', () => {
