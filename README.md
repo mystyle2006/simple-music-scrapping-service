@@ -72,22 +72,19 @@ redis + cache manager를 통해 각 음원순위 API들을 기본적으로 30분
 }
 ```
 
-우선 요구사항을 벗어나는 작업이라 판단되어 코드 상에 위 정보를 파악하여
+코드 상에 위 스크래핑 정보를 파악하여 아래 코드를 추가하면 바로 vendor를 추가할 수 있고 수정할 수 있습니다.
 ```typescript
 main.ts
 vendorDatabase.create(
   VendorEnum.MELON,
   vendorInformationDictionary[VendorEnum.MELON],
 );
-```
-
-위 코드를 추가하면 바로 vendor를 추가할 수 있고 수정할 수 있습니다. 
+``` 
 
 다만, 만약 추가적인 요구사항이 발생하여 내부 사용자가 UI 화면으로 CRUD를 해야한다면 
 vendor 테이블을 CRUD하는 API만 만들면 요구사항을 충족시킬 수 있습니다.
 
 ### 기타 사항
-- 요구사항 중 "단일 노웨 대해 동일한 api 요청이 빠르게 들어오는 경우, 처리 중인 Task의 결과를 반환할 수 있도록 구현해 주세요." 내용은 맥락을 이해하지 못해 아쉽게도 개발 내용에 포함되지 못한 것 같습니다.
-- vibe라는 vendor가 존재하는데 이 페이지는 headless browser를 활용해야만 처리할 수 있을 것 같습니다. (참고1)
+- vibe라는 vendor가 존재하는데 이 페이지는 headless browser를 활용해야 처리할 수 있습니다. (참고1)
 
 참고1: https://stackoverflow.com/questions/67952799/how-to-get-html-data-from-site
