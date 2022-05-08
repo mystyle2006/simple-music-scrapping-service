@@ -20,4 +20,23 @@ export const vendorInformationDictionary = {
       agencyTarget: 'dd:nth-of-type(4)',
     },
   },
+  [VendorEnum.GENIE]: {
+    name: VendorEnum.GENIE,
+    music: {
+      url: 'https://www.genie.co.kr/chart/top200',
+      target: '.music-list-wrap table tbody tr',
+      rankTarget: 'td:nth-of-type(2)',
+      nameTarget: 'td:nth-of-type(5) a:nth-of-type(1)',
+      singerTarget: 'td:nth-of-type(5) a:nth-of-type(2)',
+      albumTarget: 'td:nth-of-type(5) a:nth-of-type(3)',
+      albumIdTarget: 'td:nth-of-type(3)',
+      albumIdPrefix: 'fnViewAlbumLayer',
+    },
+    album: {
+      url: 'https://www.genie.co.kr/detail/albumInfo?axnm=',
+      target: '.album-detail-infos .info-data',
+      publisherTarget: 'li:nth-of-type(3) span:nth-of-type(2)',
+      agencyTarget: 'li:nth-of-type(4) span:nth-of-type(2)',
+    },
+  },
 };

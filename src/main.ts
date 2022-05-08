@@ -14,6 +14,11 @@ async function bootstrap() {
     vendorInformationDictionary[VendorEnum.MELON],
   );
 
+  vendorDatabase.create(
+    VendorEnum.GENIE,
+    vendorInformationDictionary[VendorEnum.GENIE],
+  );
+
   const config = new DocumentBuilder()
     .setTitle('Music Chart')
     .setDescription('The Music Chart API')

@@ -23,7 +23,9 @@ export const scrapMusic = async (
   let musics: MusicSummaryInterface = {};
 
   $(music.target).map((i, element) => {
-    const ranking = _.trim($(element).find(music.rankTarget).text());
+    const ranking = _.trim(
+      $(element).find(music.rankTarget).children().remove().end().text(),
+    );
     const name = _.trim($(element).find(music.nameTarget).text());
     const singer = _.trim($(element).find(music.singerTarget).text());
     const album = _.trim($(element).find(music.albumTarget).text());
