@@ -1,5 +1,5 @@
 import { vendorInformationDictionary } from '../../../dictionary/vendor-information.dictionary';
-import { VendorEnum } from '../../../enum/vendor.enum';
+import { VendorEnum } from '../../../enums/vendor.enum';
 import { axiosWrapper } from '../../../utils/axios.wrapper';
 import { melonAlbumScrapHtmlStub } from '../_test/stubs/melon-album-scrap-html.stub';
 import { AlbumSummaryInterface } from '../interfaces/album-summary.interface';

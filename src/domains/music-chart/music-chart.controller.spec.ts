@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { VendorEnum } from '../../enum/vendor.enum';
+import { VendorEnum } from '../../enums/vendor.enum';
 import { albumIdStub } from './_test/stubs/album-id.stub';
 import { MusicChartController } from './music-chart.controller';
 import { MusicChartService } from './music-chart.service';

@@ -6,8 +6,8 @@ import { albumDatabase } from '../../../database/album.database';
 import { musicDatabase } from '../../../database/music.database';
 import { scrapLogDatabase } from '../../../database/scrap-log.database';
 import { queueDictionary } from '../../../dictionary/queue.dictionary';
-import { ScrapStatusEnum } from '../../../enum/scrap-status.enum';
-import { VendorEnum } from '../../../enum/vendor.enum';
+import { ScrapStatusEnum } from '../../../enums/scrap-status.enum';
+import { VendorEnum } from '../../../enums/vendor.enum';
 import {
   getMusicAlbumCacheName,
   getMusicCacheName,

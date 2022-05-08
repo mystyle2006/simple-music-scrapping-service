@@ -1,4 +1,4 @@
-import { VendorEnum } from '../enum/vendor.enum';
+import { VendorEnum } from '../enums/vendor.enum';
 
 export const vendorInformationDictionary = {
   [VendorEnum.MELON]: {

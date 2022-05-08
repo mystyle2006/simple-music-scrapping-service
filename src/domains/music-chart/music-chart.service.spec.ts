@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CacheService } from '../../cache/cache.service';
 import { albumDatabase } from '../../database/album.database';
 import { musicDatabase } from '../../database/music.database';
-import { VendorEnum } from '../../enum/vendor.enum';
+import { VendorEnum } from '../../enums/vendor.enum';
 import { albumStub } from './_test/stubs/album.stub';
 import { albumIdStub } from './_test/stubs/album-id.stub';
 import { albumSummaryStub } from './_test/stubs/album-summary.stub';

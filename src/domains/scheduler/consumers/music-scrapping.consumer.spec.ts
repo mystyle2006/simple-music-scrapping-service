@@ -7,7 +7,7 @@ import { albumDatabase } from '../../../database/album.database';
 import { musicDatabase } from '../../../database/music.database';
 import { scrapLogDatabase } from '../../../database/scrap-log.database';
 import { vendorInformationDictionary } from '../../../dictionary/vendor-information.dictionary';
-import { VendorEnum } from '../../../enum/vendor.enum';
+import { VendorEnum } from '../../../enums/vendor.enum';
 import { albumIdStub } from '../../music-chart/_test/stubs/album-id.stub';
 import { albumSummaryStub } from '../../music-chart/_test/stubs/album-summary.stub';
 import { musicSummaryStub } from '../../music-chart/_test/stubs/music-summary.stub';

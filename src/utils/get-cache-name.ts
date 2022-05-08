@@ -1,5 +1,5 @@
 import { cacheNameDictionary } from '../dictionary/cache-name.dictionary';
-import { VendorEnum } from '../enum/vendor.enum';
+import { VendorEnum } from '../enums/vendor.enum';
 
 export const getMusicCacheName = (vendor: VendorEnum) =>
   [vendor, cacheNameDictionary.MUSIC_CACHE].join('_');

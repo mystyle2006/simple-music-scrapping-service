@@ -6,7 +6,7 @@ import { Queue } from 'bull';
 import { scrapLogDatabase } from '../../database/scrap-log.database';
 import { vendorDatabase } from '../../database/vendor.database';
 import { queueDictionary } from '../../dictionary/queue.dictionary';
-import { VendorEnum } from '../../enum/vendor.enum';
+import { VendorEnum } from '../../enums/vendor.enum';
 import { ReturnSvcScrapLogDto } from './dto/return-svc-scrap-log.dto';
 import { getCronExpression } from './logics/get-cron-expression';
 

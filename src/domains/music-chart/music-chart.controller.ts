@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { VendorEnum } from '../../enum/vendor.enum';
+import { VendorEnum } from '../../enums/vendor.enum';
 import { ToUpperCasePipe } from '../../utils/to-upper-case.pipe';
 import { ReturnSvcFindOneDto } from './dto/return-svc-find-one.dto';
 import { MusicInterface } from './interfaces/music.interface';

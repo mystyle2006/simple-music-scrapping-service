@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { CacheService } from '../../cache/cache.service';
 import { albumDatabase } from '../../database/album.database';
 import { musicDatabase } from '../../database/music.database';
-import { VendorEnum } from '../../enum/vendor.enum';
+import { VendorEnum } from '../../enums/vendor.enum';
 import {
   getMusicAlbumCacheName,
   getMusicCacheName,

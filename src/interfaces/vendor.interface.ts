@@ -1,4 +1,4 @@
-import { VendorEnum } from '../enum/vendor.enum';
+import { VendorEnum } from '../enums/vendor.enum';
 import { AlbumScrapInterface } from './album-scrap.interface';
 import { MusicScrapInterface } from './music-scrap.interface';
 

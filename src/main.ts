@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { vendorDatabase } from './database/vendor.database';
 import { vendorInformationDictionary } from './dictionary/vendor-information.dictionary';
-import { VendorEnum } from './enum/vendor.enum';
+import { VendorEnum } from './enums/vendor.enum';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

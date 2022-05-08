@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { vendorDatabase } from '../../database/vendor.database';
 import { queueDictionary } from '../../dictionary/queue.dictionary';
 import { vendorInformationDictionary } from '../../dictionary/vendor-information.dictionary';
-import { VendorEnum } from '../../enum/vendor.enum';
+import { VendorEnum } from '../../enums/vendor.enum';
 import { SchedulerService } from './scheduler.service';
 
 describe('scheduler.service.spec.ts', () => {
