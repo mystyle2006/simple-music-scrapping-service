@@ -1,6 +1,6 @@
 import { ScrapLogInterface } from '../interfaces/scrap-log.interface';
 
-class CallsDto {
+export class CallsDto {
   total: number;
   [key: string]: number;
 }

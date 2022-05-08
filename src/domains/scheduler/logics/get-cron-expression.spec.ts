@@ -1,6 +1,6 @@
 import { getCronExpression } from './get-cron-expression';
 
-describe('getCronExpression', () => {
+describe('get-cron-expression.spec.ts', () => {
   let output: string;
   beforeEach(() => {
     output = getCronExpression();

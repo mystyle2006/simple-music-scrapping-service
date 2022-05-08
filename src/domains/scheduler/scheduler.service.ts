@@ -8,6 +8,7 @@ import { vendorDatabase } from '../../database/vendor.database';
 import { queueDictionary } from '../../dictionary/queue.dictionary';
 import { ReturnSvcScrapLogDto } from './dto/return-svc-scrap-log.dto';
 import { getCronExpression } from './logics/get-cron-expression';
+import { makeCalls } from './logics/make-calls';
 
 @Injectable()
 export class SchedulerService {
@@ -30,18 +31,9 @@ export class SchedulerService {
   findLogs(): ReturnSvcScrapLogDto {
     const logs = Object.values(scrapLogDatabase.find() || {});
     const vendors = vendorDatabase.find();
-    const calls = vendors.reduce(
-      (acc, cur) => {
-        return {
-          ...acc,
-          [`${cur.name}`.toLowerCase()]: logs.map(
-            (log) => log.vendorName === cur.name,
-          ).length,
-        };
-      },
-      {
-        total: logs.length,
-      },
+    const calls = makeCalls(
+      vendors.map((vendor) => vendor.name),
+      logs,
     );
 
     return {
