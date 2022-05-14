@@ -2,7 +2,6 @@ import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { Queue } from 'bull';
-import * as R from 'ramda';
 
 import { scrapLogDatabase } from '../../database/scrap-log.database';
 import { vendorDatabase } from '../../database/vendor.database';
