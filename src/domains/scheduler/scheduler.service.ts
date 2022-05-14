@@ -31,16 +31,7 @@ export class SchedulerService {
 
   findLogs(): ReturnSvcScrapLogDto {
     const logs = Object.values(scrapLogDatabase.find() || {});
-    const vendors = vendorDatabase.find();
-
     const calls = makeCallCounts(logs);
-    console.log(R.countBy(R.toLower)(R.pluck('vendorName')(logs)));
-    console.log(
-      R.zipObj(
-        R.map(R.toLower, R.pluck('name')(vendors)),
-        new Array(vendors.length).fill(0),
-      ),
-    );
 
     return {
       calls,
