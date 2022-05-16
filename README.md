@@ -88,3 +88,6 @@ vendor 테이블을 CRUD하는 API만 만들면 요구사항을 충족시킬 수
 - vibe라는 vendor가 존재하는데 이 페이지는 headless browser를 활용해야 처리할 수 있습니다. (참고1)
 
 참고1: https://stackoverflow.com/questions/67952799/how-to-get-html-data-from-site
+
+### 인프라 청사진
+![](./images/infra-blueprint.png)
