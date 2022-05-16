@@ -1,4 +1,5 @@
 import { Process, Processor } from '@nestjs/bull';
+import { Logger } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CacheService } from '../../../cache/cache.service';
@@ -18,6 +19,7 @@ import { scrapMusic } from '../logics/scrap-music';
 
 @Processor(queueDictionary.MUSIC_SCRAPPING)
 export class MusicScrappingConsumer {
+  private readonly logger = new Logger(MusicScrappingConsumer.name);
   constructor(private readonly cacheService: CacheService) {}
 
   @Process()
@@ -25,7 +27,7 @@ export class MusicScrappingConsumer {
     const scrapLogId = uuidv4();
 
     try {
-      console.info('>>> start scrapping target ->', data.name);
+      this.logger.log('>>> start scrapping target ->', data.name);
       scrapLogDatabase.create(scrapLogId, {
         id: scrapLogId,
         vendorName: data.name,
@@ -52,15 +54,15 @@ export class MusicScrappingConsumer {
         status: ScrapStatusEnum.DONE,
         finishedAt: new Date(),
       });
-      console.info('>>> end scrapping target ->', data.name);
+      this.logger.log('>>> end scrapping target ->', data.name);
     } catch (error) {
-      console.info(error);
+      this.logger.error(error);
       scrapLogDatabase.update(scrapLogId, {
         status: ScrapStatusEnum.FAIL,
         errorMessage: error.message,
         finishedAt: new Date(),
       });
-      console.info('>>> error scrapping target ->', data.name);
+      this.logger.log('>>> error scrapping target ->', data.name);
     }
   }
 }
