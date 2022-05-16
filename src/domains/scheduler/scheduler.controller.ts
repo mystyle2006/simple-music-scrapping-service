@@ -13,7 +13,7 @@ export class SchedulerController {
     summary: '(테스트용) 수동으로 스크래핑 실행하기',
   })
   @Get('/run')
-  run(): string {
+  async run(): Promise<string> {
     this.schedulerService.scrap();
     return '음원순위 스크래핑이 수동으로 동작하였습니다.';
   }
