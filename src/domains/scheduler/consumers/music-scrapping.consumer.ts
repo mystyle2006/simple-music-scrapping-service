@@ -1,5 +1,4 @@
 import { Process, Processor } from '@nestjs/bull';
-import { Logger } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CacheService } from '../../../cache/cache.service';
@@ -12,15 +11,17 @@ import {
   getMusicAlbumCacheName,
   getMusicCacheName,
 } from '../../../utils/get-cache-name';
+import { LoggerWrapper } from '../../../utils/logger.wrapper';
 import { MusicJobInterface } from '../interfaces/music-job.interface';
 import { MusicSummaryInterface } from '../interfaces/music-summary.interface';
 import { scrapAlbums } from '../logics/scrap-albums';
 import { scrapMusic } from '../logics/scrap-music';
 
 @Processor(queueDictionary.MUSIC_SCRAPPING)
-export class MusicScrappingConsumer {
-  private readonly logger = new Logger(MusicScrappingConsumer.name);
-  constructor(private readonly cacheService: CacheService) {}
+export class MusicScrappingConsumer extends LoggerWrapper {
+  constructor(private readonly cacheService: CacheService) {
+    super(MusicScrappingConsumer.name);
+  }
 
   @Process()
   async scrapping({ data }: MusicJobInterface) {
