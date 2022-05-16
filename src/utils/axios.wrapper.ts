@@ -6,6 +6,7 @@ class AxiosWrapper {
       const { data } = await axios.get(host);
       return data;
     } catch (error) {
+      console.error(error.message);
       return null;
     }
   }

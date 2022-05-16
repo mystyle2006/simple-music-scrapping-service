@@ -6,6 +6,21 @@ import { AlbumScrapInterface } from '../../../interfaces/album-scrap.interface';
 import { axiosWrapper } from '../../../utils/axios.wrapper';
 import { AlbumSummaryInterface } from '../interfaces/album-summary.interface';
 
+const scrapAlbum = async (album: AlbumScrapInterface, albumId: string) => {
+  const html = await axiosWrapper.get(`${album.url}${albumId}`);
+  if (!html) {
+    throw new Error(errorMessageDictionary.ALBUM_SCRAPPING_EMPTY);
+  }
+
+  const $ = cheerio.load(html);
+  const agency = _.trim($(album.target).find(album.agencyTarget).text());
+  const publisher = _.trim($(album.target).find(album.publisherTarget).text());
+  return {
+    agency,
+    publisher,
+  };
+};
+
 export const scrapAlbums = async (
   album: AlbumScrapInterface,
   albumIds: string[],
@@ -14,25 +29,12 @@ export const scrapAlbums = async (
     return {};
   }
 
-  const albums = await albumIds.reduce(async (promise, albumId) => {
-    const html = await axiosWrapper.get(`${album.url}${albumId}`);
-    if (!html) {
-      const result = await promise.then();
-      return Promise.resolve(result);
-    }
+  const [firstAlbumId, ...leftAlbumIds] = albumIds;
+  const firstAlbumResult = await scrapAlbum(album, firstAlbumId);
 
-    const $ = cheerio.load(html);
-    const agency = _.trim($(album.target).find(album.agencyTarget).text());
-    const publisher = _.trim(
-      $(album.target).find(album.publisherTarget).text(),
-    );
-
+  const albums = await leftAlbumIds.reduce(async (promise, albumId) => {
     const result = await promise.then();
-    result[albumId] = {
-      agency,
-      publisher,
-    };
-
+    result[albumId] = await scrapAlbum(album, albumId);
     return Promise.resolve(result);
   }, Promise.resolve({}));
 
@@ -40,5 +42,8 @@ export const scrapAlbums = async (
     throw new Error(errorMessageDictionary.ALBUM_SCRAPPING_EMPTY);
   }
 
-  return albums;
+  return {
+    [firstAlbumId]: firstAlbumResult,
+    ...albums,
+  };
 };

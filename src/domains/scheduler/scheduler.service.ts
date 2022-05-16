@@ -30,6 +30,7 @@ export class SchedulerService {
 
   findLogs(): ReturnSvcScrapLogDto {
     const logs = Object.values(scrapLogDatabase.find() || {});
+    console.log(logs);
     const calls = makeCallCounts(logs);
 
     return {
